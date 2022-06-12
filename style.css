@@ -1,0 +1,990 @@
+:root {
+  --main-font: "Lato", sans-serif;
+  --main-green: green;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f0f0f0;
+}
+
+header {
+  width: 100%;
+  height: 80px;
+  padding: 10px 20px;
+  background: #fff;
+  box-shadow: 0px 2px 2px #d8d8d8;
+}
+
+header img {
+  max-width: 40%;
+}
+
+header div {
+  flex-basis: 33%;
+}
+
+header h1 {
+  font-family: var(--main-font);
+  text-align: center;
+  flex-basis: 33%;
+  color: #8d8d8d;
+}
+
+.headerSingleRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerTwoRows {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerBtn {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 150px;
+  height: 50px;
+  padding: 5px;
+  font-family: var(--main-font);
+  font-size: 18px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.headerBtn:hover {
+  transform: scale(1.05);
+}
+
+.headerBtnGreen {
+  color: white;
+  background: var(--main-green);
+}
+
+.headerBtnGray {
+  color: white;
+  background: rgb(99, 99, 99);
+}
+
+.headerBtnRed {
+  color: white;
+  background: rgb(225, 2, 2);
+}
+
+.openTreeActionBtns {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: end;
+  gap: 10px;
+  flex-basis: 33%;
+}
+
+.mainContent {
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 80px);
+  padding: 20px;
+}
+
+.treesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: min-content;
+  /* grid-template-columns: repeat(5, 1fr); */
+  /* grid-auto-rows: max-content; */
+  /* align-content: flex-start; */
+  gap: 20px;
+}
+
+.tree {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  height: fit-content;
+  background: #fff url(images/tree-bg-2.png) no-repeat right;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 3px #c4c4c4;
+  border: 3px solid green;
+  transition: 0.5s;
+  /* cursor: pointer; */
+}
+
+.tree:hover {
+  border: 3px solid rgb(133, 95, 28);
+  transform: scale(1.02);
+}
+
+.tree h2 {
+  font-family: var(--main-font);
+  font-size: 24px;
+  margin-bottom: 5px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.tree h2:hover {
+  outline: 1px dotted gray;
+  border-radius: 5px;
+}
+
+.tree h2:focus {
+  outline: 1px dotted gray;
+  border-radius: 5px;
+}
+
+.tree .date {
+  display: block;
+  font-family: var(--main-font);
+  font-size: 14px;
+  color: rgb(176, 176, 176);
+}
+
+.tree .treeControls {
+  width: auto;
+  padding: 5px;
+  height: auto;
+  /* display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end; */
+  align-self: flex-end;
+}
+
+.tree .treeControls i {
+  font-size: 18px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tree .treeControls .deleteTree {
+  color: rgb(186, 0, 0);
+}
+
+.tree .treeControls .loadTree {
+  /* color: rgb(0, 98, 0); */
+  color: black;
+}
+
+.treesNoContent {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.treesNoContent p {
+  font-family: var(--main-font);
+  font-size: 24px;
+  color: rgb(142, 142, 142);
+}
+
+.treesNoContent .buttonCreateTree {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--main-font);
+  font-size: 24px;
+  line-height: 1;
+  color: #fff;
+  background: green;
+  width: 15%;
+  height: 60px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.treesNoContent .buttonCreateTree:hover {
+  background: rgb(0, 84, 0);
+  transform: scale(1.02);
+  color: #fff;
+}
+
+/* .mainContentOpenTree:hover .treeControlOptions {
+  opacity: 1;
+} */
+
+.treeControlOptions {
+  position: fixed;
+  width: auto;
+  height: auto;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 20px;
+  background: rgb(154, 106, 38);
+  padding: 10px;
+  border-radius: 5px;
+  transition: 1s;
+  opacity: 1;
+  z-index: 1000;
+}
+
+.openTreeControls {
+  display: flex;
+  flex-flow: row;
+  list-style: none;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.openTreeControls li {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  min-width: 100px;
+  font-family: var(--main-font);
+  font-size: 12px;
+  color: white;
+  margin: 0 10px;
+  padding: 10px;
+  background: rgb(116, 80, 29);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5s;
+  user-select: none;
+}
+
+.openTreeControls li:hover {
+  background: rgb(87, 60, 22);
+  transform: scale(1.1);
+}
+
+.openTreeControls i {
+  font-size: 28px;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.openTreeControls .getHelp {
+  background: rgb(2, 187, 2);
+}
+
+.openTreeControls .getHelp:hover {
+  background: rgb(0, 154, 0);
+}
+
+.openTreeControls .deleteRow {
+  background: rgb(225, 2, 2);
+}
+
+.openTreeControls .deleteRow:hover {
+  background: rgb(191, 0, 0);
+}
+
+/* TABLE */
+
+#tableTree {
+  /* background: #fff; */
+  transition: 0.1s;
+  transform: scale(1);
+}
+
+#tableTree tr {
+  background: #fff;
+  transition: 0.75s;
+}
+
+#tableTree tr:hover {
+  /* background: rgb(170, 1, 1); */
+  /* color: white; */
+  background: rgb(255, 213, 0);
+  /* opacity: 0.3; */
+}
+
+table {
+  width: 792px;
+  margin: auto;
+}
+
+.generation {
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 9.5pt;
+  border: 1px solid black;
+  width: 164px;
+  padding: 10px;
+}
+
+.generationInfo {
+  font-family: sans-serif;
+  font-size: 9.5pt;
+  width: 80%;
+  padding: 5px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.formContainerFooter {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+  background: navy;
+}
+
+.overlayWarning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+}
+
+.warningModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  color: black;
+  background: white;
+  width: 30%;
+  height: 150px;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.editableDiv {
+  width: 600px;
+  padding: 5px;
+  height: auto;
+  background: white;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+.popupOverlay {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: var(--main-font);
+  color: #000000;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 20000;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.5s linear 0s 1;
+  transition: all 0.5s;
+}
+
+.popupOverlay form {
+  width: 35%;
+  height: auto;
+  background: white;
+  border-radius: 5px;
+  padding: 25px;
+  border: 5px solid var(--main-green);
+}
+
+.popupOverlay h1 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.popupOverlay i {
+  margin-right: 10px;
+  color: rgb(133, 95, 28);
+}
+
+.popupOverlay label,
+h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.popupOverlay label {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.popupOverlay h2 {
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.inputContainerSingle {
+  display: flex;
+  flex-flow: column wrap;
+  margin-bottom: 20px;
+}
+
+.popupOverlay input[type="text"] {
+  width: 100%;
+  font-family: var(--main-font);
+  font-size: 18px;
+  height: 40px;
+  padding: 0px 10px;
+  border: 1px solid #8d8d8d;
+  border-radius: 5px;
+}
+
+.popupOverlay input[type="text"]:focus,
+.popupOverlay select:focus {
+  outline: 2px solid rgb(116, 80, 29, 0.5);
+}
+
+.popupOverlay input[type="text"]:read-only {
+  background: lightgray;
+  border: 1px dashed gray;
+}
+
+.popupOverlay select {
+  width: 50%;
+  height: 40px;
+  font-size: 18px;
+  font-family: var(--main-font);
+  padding: 0 10px;
+  border-radius: 5px;
+}
+
+.inputContainerDate {
+  display: flex;
+  flex-flow: row;
+  gap: 0px 10px;
+}
+
+.inputContainerDate div {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  flex-basis: 33%;
+}
+
+.checkMarks {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.checkMarks input,
+.checkMarks label {
+  margin-right: 10px;
+  margin-bottom: 0px;
+  line-height: 1;
+}
+
+.popupOverlay input[type="submit"] {
+  width: 100%;
+  height: 40px;
+  background: var(--main-green);
+  font-family: var(--main-font);
+  /* text-transform: uppercase; */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.popupOverlay .overlayContainer {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 30px;
+  width: 50%;
+  height: auto;
+}
+
+.popupOverlay .overlayContainer h1 {
+  font-family: var(--main-font);
+  color: #fff;
+  font-weight: 700;
+  margin: 0;
+}
+
+.overlayContainer h1 span {
+  color: rgb(255, 213, 0);
+}
+
+.popupOverlay .editionBtnsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: auto;
+  height: auto;
+}
+
+.popupOverlay .editionDiv {
+  font-family: var(--main-font);
+  font-size: 18px;
+  color: #000;
+  width: 100%;
+  padding: 50px 20px;
+  height: auto;
+  min-height: 100px;
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  outline: 5px dashed green;
+  caret-color: red;
+  transition: 0.5s;
+}
+
+.popupOverlay .editionDiv:focus {
+  outline: 5px dashed red;
+}
+
+.popupOverlay .contentSection {
+  width: 35%;
+  height: 50%;
+  background: #fff;
+  border: 5px solid green;
+  border-radius: 5px;
+}
+
+.toastContainer {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 10px;
+  height: auto;
+  position: absolute;
+  width: 350px;
+  z-index: 50000;
+  bottom: 20px;
+  right: 20px;
+}
+
+.toast {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--main-font);
+  font-size: 18px;
+  color: white;
+  font-weight: 700;
+  /* position: fixed; */
+  width: 100%;
+  /* z-index: 50000; */
+  /* bottom: 20px; */
+  /* right: 20px; */
+  padding: 20px 30px;
+  border-radius: 5px;
+}
+
+.toast i {
+  font-size: 24px;
+  color: white;
+  margin-right: 10px;
+}
+
+.toastSuccess {
+  background: green;
+}
+
+.toastWarning {
+  background: rgb(225, 2, 2);
+}
+
+.toastMessage {
+  background: rgb(50, 50, 50);
+}
+
+.mainHelpButton {
+  position: fixed;
+  font-size: 48px;
+  color: var(--main-green);
+  bottom: 40px;
+  right: 40px;
+  cursor: pointer;
+}
+
+.popupOverlay .appInstructions {
+  padding: 20px;
+  height: fit-content;
+}
+
+.appInstructions ul {
+  list-style: none;
+}
+
+.appInstructions li {
+  font-family: var(--main-font);
+  font-size: 18px;
+  margin: 10px 0px;
+  line-height: 1.5;
+}
+
+.appInstructions li::before {
+  content: "\f055";
+  font-family: "Font Awesome\ 6 Free";
+  font-size: 18px;
+  color: var(--main-green);
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+.noPC {
+  display: none;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50000;
+  top: 0;
+  left: 0;
+}
+
+.noPC img {
+  width: 80%;
+}
+
+.noPC p {
+  width: 70%;
+  font-family: var(--main-font);
+  font-size: 24px;
+  text-align: center;
+  color: rgb(142, 142, 142);
+}
+/* ANIMATIONS */
+
+.fadeIn {
+  animation: fadeIn 1s linear 0s 1;
+}
+
+.fadeOut {
+  animation: fadeOut 0.5s linear 0s 1;
+}
+
+.slideDown {
+  animation: slideDown 0.3s linear 0s 1, fadeOut 0.3s linear 0s 1;
+}
+
+.outlineMC {
+  animation: outlineMc 3s linear infinite;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(100px);
+  }
+}
+
+@keyframes outlineMc {
+  0% {
+    outline: 5px dashed rgb(255, 213, 0);
+  }
+  33% {
+    outline: 5px dashed rgb(225, 2, 2);
+  }
+  66% {
+    outline: 5px dashed green;
+  }
+
+  100% {
+    outline: 5px dashed rgb(255, 213, 0);
+  }
+}
+
+/*
+
+MEDIA QUERIES
+
+*/
+
+@media screen and (min-width: 320px) and (max-width: 720px) {
+  .treesNoContent .buttonCreateTree {
+    width: 90%;
+  }
+
+  .treesNoContent p {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  header {
+    height: fit-content;
+    padding: 20px;
+  }
+
+  header div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-basis: 1;
+  }
+
+  header img {
+    min-width: 80%;
+  }
+
+  .headerBtn {
+    width: 60%;
+    font-size: 18px;
+  }
+
+  .btnHeaderBack,
+  .btnHeaderSave {
+    width: 150px;
+  }
+
+  table {
+    width: 100%;
+    margin: auto;
+  }
+
+  .headerTwoRows {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .mainContentOpenTree {
+    padding: 20px 5px;
+  }
+
+  .treeControlOptions {
+    position: absolute;
+    left: 0%;
+    bottom: 10px;
+    transform: translate(0, 0);
+    height: fit-content;
+    width: fit-content;
+    padding: 5px;
+    /* opacity: 0.7; */
+  }
+
+  .openTreeControls ul {
+    width: 100%;
+  }
+
+  .openTreeControls {
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+    justify-content: center;
+    /* opacity: 0.8; */
+  }
+
+  .openTreeControls li {
+    margin: 2px;
+    width: 24%;
+    min-width: 50px;
+    font-size: 10px;
+  }
+
+  .openTreeControls i {
+    font-size: 18px;
+  }
+
+  .openTreeActionBtns {
+    justify-content: center;
+    flex-basis: 1;
+  }
+
+  header h1 {
+    font-size: 24px;
+    flex-basis: 1;
+    order: 3;
+  }
+
+  .popupOverlay form {
+    width: 95%;
+    height: fit-content;
+    overflow-y: scroll;
+  }
+
+  .toastContainer {
+    position: fixed;
+    width: 95%;
+    height: auto;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .toast {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--main-font);
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px;
+  }
+
+  .toast i {
+    font-size: 18px;
+    color: white;
+    margin-right: 5px;
+  }
+
+  .popupOverlay .overlayContainer {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    gap: 30px;
+    width: 95%;
+    height: auto;
+  }
+
+  .popupOverlay .editionBtnsContainer {
+    width: 100%;
+  }
+
+  .cancelEdition,
+  .saveEdition {
+    width: 50%;
+  }
+
+  .popupOverlay .appInstructions {
+    width: 95%;
+    height: fit-content;
+    overflow-y: scroll;
+  }
+}
+
+@media screen and (min-width: 720px) and (max-width: 1024px) {
+  .treesNoContent .buttonCreateTree {
+    width: 50%;
+  }
+
+  header img {
+    max-width: 100%;
+  }
+}
+
+/* @media screen and (max-width: 1024px) {
+  .treesNoContent .buttonCreateTree {
+    width: 50%;
+  }
+} */
+
+/* @media screen and (max-width: 1024px) {
+  .noPC {
+    display: flex;
+  }
+} */
+
+/* @media screen and (min-width: 768px) and (max-width: 1280px) {
+  .treesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .treeControlOptions {
+    transform: translate(0, 0);
+    transform: scale(0.9);
+    left: 0;
+    bottom: 0;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .treeControlOptions ul {
+    transform: scale(0.8);
+  }
+
+  header {
+    height: auto;
+    padding: 20px;
+  }
+  header img {
+    width: 100%;
+  }
+
+  header h1 {
+    order: 3;
+  }
+
+  header div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  header .openTreeActionBtns {
+    justify-content: center;
+  }
+
+  .headerTwoRows {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .popupOverlay form {
+    width: 90%;
+    height: auto;
+  }
+
+  .openTreeControls {
+    flex-flow: column;
+  }
+} */
+
+/* @media screen and (max-width: 1280px) {
+  .treesGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (min-width: 3000px) and (max-width: 3840px) {
+  .treesGrid {
+    grid-template-columns: repeat(8, 1fr);
+  }
+} */
